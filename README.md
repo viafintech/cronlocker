@@ -36,4 +36,4 @@ For bugs and feature requests open an issue on Github. For code contributions fo
 
 ## License
 
-[LICENSE] (MIT)
+[LICENSE](LICENSE)
