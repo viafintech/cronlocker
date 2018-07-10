@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/Barzahlen/cronlocker.svg?branch=master)](https://travis-ci.org/Barzahlen/cronlocker)
 
 cronlocker is a commandline tool to allow running cronjobs on multiple hosts while ensuring that it only runs once at a time.
+cronlocker utilizes the [consul](https://www.consul.io/) [lock](https://www.consul.io/docs/commands/lock.html) feature to ensure that.
 
 ## Usage
 
