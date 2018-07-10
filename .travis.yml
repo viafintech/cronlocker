@@ -6,7 +6,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t barzahlen/cronlocker .
+  - docker build -t cronlocker .
 
 script:
-  - docker-compose run --rm -T barzahlen/cronlocker make testci
+  - docker-compose run --rm -T cronlocker make testci
