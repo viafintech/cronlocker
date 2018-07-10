@@ -1,0 +1,12 @@
+sudo: required
+
+language: golang
+
+services:
+  - docker
+
+before_install:
+  - docker build -t barzahlen/cronlocker .
+
+script:
+  - docker-compose run --rm -T barzahlen/cronlocker make testci

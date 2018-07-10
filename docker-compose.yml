@@ -1,0 +1,6 @@
+cronlocker:
+  image: cronlocker
+  links:
+    - 'cronlockerconsul:consul'
+cronlockerconsul:
+  image: consul
