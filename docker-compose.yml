@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   cronlocker:
-    build: ./
+    image: cronlocker
     depends_on:
       - 'consul'
 
