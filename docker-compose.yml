@@ -1,6 +1,10 @@
-cronlocker:
-  image: cronlocker
-  links:
-    - 'cronlockerconsul:consul'
-cronlockerconsul:
-  image: consul
+version: '3.3'
+
+services:
+  cronlocker:
+    image: cronlocker
+    depends_on:
+      - 'consul'
+
+  consul:
+    image: consul
