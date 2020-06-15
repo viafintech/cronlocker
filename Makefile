@@ -1,5 +1,5 @@
 NAME=cronlocker
-VERSION=0.4.0
+VERSION=0.5.0
 ARCH=amd64
 LICENSE="BSD 2-Clause License"
 MAINTAINER="Tobias Schoknecht <tobias.schoknecht@barzahlen.de>"
