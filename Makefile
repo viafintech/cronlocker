@@ -2,9 +2,9 @@ NAME=cronlocker
 VERSION=0.5.0
 ARCH=amd64
 LICENSE="BSD 2-Clause License"
-MAINTAINER="Tobias Schoknecht <tobias.schoknecht@barzahlen.de>"
+MAINTAINER="Tobias Schoknecht <tobias.schoknecht@viafintech.com>"
 DESCRIPTION="Distributed sequential cronjob running tool."
-HOMEPAGE="https://www.barzahlen.de/"
+HOMEPAGE="https://www.viafintech.com/"
 GIT="git@github.com:barzahlen/cronlocker.git"
 GITBROWSER="https://github.com/Barzahlen/cronlocker"
 
