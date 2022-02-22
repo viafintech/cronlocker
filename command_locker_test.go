@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Barzahlen/cronlocker/testutils"
+	"github.com/viafintech/cronlocker/testutils"
 )
 
 func TestConsulCommandLockerLockAndExecute(t *testing.T) {

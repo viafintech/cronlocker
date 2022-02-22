@@ -5,8 +5,8 @@ LICENSE="BSD 2-Clause License"
 MAINTAINER="Tobias Schoknecht <tobias.schoknecht@viafintech.com>"
 DESCRIPTION="Distributed sequential cronjob running tool."
 HOMEPAGE="https://www.viafintech.com/"
-GIT="git@github.com:barzahlen/cronlocker.git"
-GITBROWSER="https://github.com/Barzahlen/cronlocker"
+GIT="git@github.com:viafintech/cronlocker.git"
+GITBROWSER="https://github.com/viafintech/cronlocker"
 
 .PHONY: test testci package cronlocker
 
