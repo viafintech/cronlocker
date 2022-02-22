@@ -1,4 +1,4 @@
-FROM golang:1.14.5
+FROM golang:1.17.7
 
 # Don't run tests as root so we can play with permissions
 RUN useradd --create-home --user-group app
