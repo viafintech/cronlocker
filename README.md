@@ -1,6 +1,6 @@
 # cronlocker
 
-![GitHub](https://img.shields.io/github/license/Barzahlen/cronlocker) [![Build Status](https://travis-ci.org/Barzahlen/cronlocker.svg?branch=master)](https://travis-ci.org/Barzahlen/cronlocker) ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/Barzahlen/cronlocker) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Barzahlen/cronlocker)
+![GitHub](https://img.shields.io/github/license/viafintech/cronlocker) ![Build Status](https://github.com/viafintech/cronlocker/actions/workflows/test.yml/badge.svg)  ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/viafintech/cronlocker) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/viafintech/cronlocker)
 
 cronlocker is a commandline tool to allow running cronjobs on multiple hosts while ensuring that it only runs once at a time.
 cronlocker utilizes the [consul](https://www.consul.io/) [lock](https://www.consul.io/docs/commands/lock.html) feature to ensure that.
