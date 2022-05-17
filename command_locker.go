@@ -78,7 +78,7 @@ func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, err
 
 	ctx := context.Background()
 	var cancel func()
-	if ccl.maxExecTime == 0 {
+	if ccl.maxExecTime != 0 {
 		ctx, cancel = context.WithTimeout(ctx, ccl.maxExecTime)
 		defer cancel()
 	}
