@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"net/url"
 	"os/exec"
 	"time"
@@ -13,16 +14,19 @@ type ConsulCommandLocker struct {
 	apiClient    *api.Client
 	lockWaitTime time.Duration
 	minLockTime  time.Duration
+	maxExecTime  time.Duration
 }
 
 func NewConsulCommandLocker(
 	endpoint string,
 	lockWaitTime time.Duration,
 	minLockTime time.Duration,
+	maxExecTime time.Duration,
 ) (*ConsulCommandLocker, error) {
 	ccl := &ConsulCommandLocker{
 		lockWaitTime: lockWaitTime,
 		minLockTime:  minLockTime,
+		maxExecTime:  maxExecTime,
 	}
 
 	url, err := url.Parse(endpoint)
@@ -72,9 +76,16 @@ func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, err
 		return "Nothing was executed\n", nil
 	}
 
+	ctx := context.Background()
+	var cancel func()
+	if ccl.maxExecTime != 0 {
+		ctx, cancel = context.WithTimeout(ctx, ccl.maxExecTime)
+		defer cancel()
+	}
+
 	targetTime := time.Now().Add(ccl.minLockTime)
 
-	cmd := exec.Command("bash", "-c", command)
+	cmd := exec.CommandContext(ctx, "bash", "-c", command)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	err = cmd.Run()

@@ -19,6 +19,11 @@ var (
 		5000,
 		"Configures the minimum time in milliseconds a lock is held",
 	)
+	maxExecutionTimeMS = flag.Int(
+		"maxexecutiontime",
+		0,
+		"Configures the maximum time in milliseconds the execution of the given command can take",
+	)
 	endpoint = flag.String("endpoint", "http://localhost:8500", "endpoint")
 	key      = flag.String("key", "none", "key to monitor, e.g. cronjobs/any_service/cron_name")
 )
@@ -44,6 +49,7 @@ func main() {
 		*endpoint,
 		time.Duration(*lockWaitTimeMS)*time.Millisecond,
 		time.Duration(*minLockTimeMS)*time.Millisecond,
+		time.Duration(*maxExecutionTimeMS)*time.Millisecond,
 	)
 	if err != nil {
 		log.Fatalf("%v", err)

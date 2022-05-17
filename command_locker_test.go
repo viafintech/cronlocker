@@ -43,6 +43,7 @@ func TestConsulCommandLockerLockAndExecute(t *testing.T) {
 		testutils.CONSULURI,
 		300*time.Millisecond,
 		time.Millisecond,
+		0,
 	)
 
 	for _, c := range cases {
@@ -81,6 +82,7 @@ func TestConsulCommandLockerMinimumLockAndExecuteTime(t *testing.T) {
 		testutils.CONSULURI,
 		300*time.Millisecond,
 		500*time.Millisecond,
+		0,
 	)
 
 	startTime := time.Now()
@@ -89,5 +91,22 @@ func TestConsulCommandLockerMinimumLockAndExecuteTime(t *testing.T) {
 
 	if time.Since(startTime) <= 500*time.Millisecond {
 		t.Errorf("Locker did not wait the minimum time the lock should have been held")
+	}
+}
+
+func TestConsulCommandLockerMaximumExecutionTime(t *testing.T) {
+	commandLocker, _ := NewConsulCommandLocker(
+		testutils.CONSULURI,
+		100*time.Millisecond,
+		300*time.Millisecond,
+		500*time.Millisecond,
+	)
+
+	startTime := time.Now()
+
+	commandLocker.LockAndExecute("test/cron/service/min_time_job", "sleep 5")
+
+	if time.Since(startTime) > 700*time.Millisecond {
+		t.Errorf("Locker did not abort after the maximum execution time was reached")
 	}
 }
