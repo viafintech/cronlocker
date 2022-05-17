@@ -23,7 +23,7 @@ Usage of ./cronlocker:
       key to monitor, e.g. cronjobs/any_service/cron_name (default "none")
   -lockwaittime int
       Configures the wait time for a lock in milliseconds (default 500)
-  -maxExecutionTimeMS int
+  -maxexecutiontime int
       Configures the maximum time in milliseconds the execution of the given command can take
   -minlocktime int
       Configures the minimum time in milliseconds a lock is held (default 5000)

@@ -20,7 +20,7 @@ var (
 		"Configures the minimum time in milliseconds a lock is held",
 	)
 	maxExecutionTimeMS = flag.Int(
-		"maxExecutionTimeMS",
+		"maxexecutiontime",
 		0,
 		"Configures the maximum time in milliseconds the execution of the given command can take",
 	)
