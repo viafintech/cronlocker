@@ -18,13 +18,15 @@ Use `cronlocker --help` to get the following output:
 ```
 Usage of ./cronlocker:
   -endpoint string
-        endpoint (default "http://localhost:8500")
+      endpoint (default "http://localhost:8500")
   -key string
-        key to monitor, e.g. cronjobs/any_service/cron_name (default "none")
+      key to monitor, e.g. cronjobs/any_service/cron_name (default "none")
   -lockwaittime int
-        Configures the wait time for a lock in milliseconds (default 500)
+      Configures the wait time for a lock in milliseconds (default 500)
+  -maxExecutionTimeMS int
+      Configures the maximum time in milliseconds the execution of the given command can take
   -minlocktime int
-        Configures the minimum time in milliseconds a lock is held (default 5000)
+      Configures the minimum time in milliseconds a lock is held (default 5000)
 ```
 
 ## Packaging
