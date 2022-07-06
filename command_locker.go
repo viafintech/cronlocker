@@ -19,6 +19,7 @@ type ConsulCommandLocker struct {
 
 func NewConsulCommandLocker(
 	endpoint string,
+	token string,
 	lockWaitTime time.Duration,
 	minLockTime time.Duration,
 	maxExecTime time.Duration,
@@ -39,6 +40,7 @@ func NewConsulCommandLocker(
 		Address:  address,
 		Scheme:   url.Scheme,
 		WaitTime: time.Second,
+		Token:    token,
 	}
 
 	apiClient, err := api.NewClient(config)
