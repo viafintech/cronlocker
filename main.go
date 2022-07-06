@@ -25,6 +25,7 @@ var (
 		"Configures the maximum time in milliseconds the execution of the given command can take",
 	)
 	endpoint = flag.String("endpoint", "http://localhost:8500", "endpoint")
+	token    = flag.String("token", "", "consul authentication token. leave blank if none applicable")
 	key      = flag.String("key", "none", "key to monitor, e.g. cronjobs/any_service/cron_name")
 )
 
@@ -47,6 +48,7 @@ func main() {
 	// Initiate command locker
 	ccl, err := NewConsulCommandLocker(
 		*endpoint,
+		*token,
 		time.Duration(*lockWaitTimeMS)*time.Millisecond,
 		time.Duration(*minLockTimeMS)*time.Millisecond,
 		time.Duration(*maxExecutionTimeMS)*time.Millisecond,

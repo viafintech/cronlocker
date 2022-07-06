@@ -41,6 +41,7 @@ func TestConsulCommandLockerLockAndExecute(t *testing.T) {
 
 	commandLocker, _ := NewConsulCommandLocker(
 		testutils.CONSULURI,
+		"", // Blank token
 		300*time.Millisecond,
 		time.Millisecond,
 		0,
@@ -80,6 +81,7 @@ func TestConsulCommandLockerLockAndExecute(t *testing.T) {
 func TestConsulCommandLockerMinimumLockAndExecuteTime(t *testing.T) {
 	commandLocker, _ := NewConsulCommandLocker(
 		testutils.CONSULURI,
+		"", // blank token
 		300*time.Millisecond,
 		500*time.Millisecond,
 		0,
@@ -97,6 +99,7 @@ func TestConsulCommandLockerMinimumLockAndExecuteTime(t *testing.T) {
 func TestConsulCommandLockerMaximumExecutionTime(t *testing.T) {
 	commandLocker, _ := NewConsulCommandLocker(
 		testutils.CONSULURI,
+		"", // blank token
 		100*time.Millisecond,
 		300*time.Millisecond,
 		500*time.Millisecond,
