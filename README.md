@@ -27,6 +27,8 @@ Usage of ./cronlocker:
       Configures the maximum time in milliseconds the execution of the given command can take
   -minlocktime int
       Configures the minimum time in milliseconds a lock is held (default 5000)
+  -token string
+      consul authentication token. leave blank if none applicable
 ```
 
 ## Packaging
