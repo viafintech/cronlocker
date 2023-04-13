@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"errors"
 	"net/url"
 	"os/exec"
 	"time"
@@ -10,24 +11,32 @@ import (
 	"github.com/hashicorp/consul/api"
 )
 
+var errLockWaitTimeExpired = errors.New("wait time for acquiring the lock expired")
+
+// ConsulCommandLocker is an implementation of a command locker for consul,
+// responsible for acquiring a distributed lock and executing a command
 type ConsulCommandLocker struct {
-	apiClient    *api.Client
-	lockWaitTime time.Duration
-	minLockTime  time.Duration
-	maxExecTime  time.Duration
+	apiClient                *api.Client
+	lockWaitTime             time.Duration
+	minLockTime              time.Duration
+	maxExecTime              time.Duration
+	failOnLockWaitExpiration bool
 }
 
+// NewConsulCommandLocker initializes a new ConsulCommandlocker
 func NewConsulCommandLocker(
 	endpoint string,
 	token string,
 	lockWaitTime time.Duration,
 	minLockTime time.Duration,
 	maxExecTime time.Duration,
+	failOnLockWaitExpiration bool,
 ) (*ConsulCommandLocker, error) {
 	ccl := &ConsulCommandLocker{
-		lockWaitTime: lockWaitTime,
-		minLockTime:  minLockTime,
-		maxExecTime:  maxExecTime,
+		lockWaitTime:             lockWaitTime,
+		minLockTime:              minLockTime,
+		maxExecTime:              maxExecTime,
+		failOnLockWaitExpiration: failOnLockWaitExpiration,
 	}
 
 	url, err := url.Parse(endpoint)
@@ -53,6 +62,7 @@ func NewConsulCommandLocker(
 	return ccl, nil
 }
 
+// LockAndExecute takes a lock key and executes the command
 func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, error) {
 	lockOpts := &api.LockOptions{
 		Key:          key,
@@ -75,6 +85,10 @@ func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, err
 	// The lock was not acquired if lock channel is empty
 	// Therefore we can simply return
 	if lockCh == nil {
+		if ccl.failOnLockWaitExpiration {
+			return "", errLockWaitTimeExpired
+		}
+
 		return "Nothing was executed\n", nil
 	}
 

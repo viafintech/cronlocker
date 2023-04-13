@@ -19,6 +19,8 @@ Use `cronlocker --help` to get the following output:
 Usage of ./cronlocker:
   -endpoint string
       endpoint (default "http://localhost:8500")
+  -failwithoutlock
+      Exists with status code 1 if the lock was not received within lockwaittime
   -key string
       key to monitor, e.g. cronjobs/any_service/cron_name (default "none")
   -lockwaittime int

@@ -45,6 +45,7 @@ func TestConsulCommandLockerLockAndExecute(t *testing.T) {
 		300*time.Millisecond,
 		time.Millisecond,
 		0,
+		false,
 	)
 
 	for _, c := range cases {
@@ -85,6 +86,7 @@ func TestConsulCommandLockerMinimumLockAndExecuteTime(t *testing.T) {
 		300*time.Millisecond,
 		500*time.Millisecond,
 		0,
+		false,
 	)
 
 	startTime := time.Now()
@@ -103,13 +105,41 @@ func TestConsulCommandLockerMaximumExecutionTime(t *testing.T) {
 		100*time.Millisecond,
 		300*time.Millisecond,
 		500*time.Millisecond,
+		false,
 	)
 
 	startTime := time.Now()
 
-	commandLocker.LockAndExecute("test/cron/service/min_time_job", "sleep 5")
+	commandLocker.LockAndExecute("test/cron/service/max_time_job", "sleep 5")
 
 	if time.Since(startTime) > 700*time.Millisecond {
 		t.Errorf("Locker did not abort after the maximum execution time was reached")
+	}
+}
+
+func TestConsulCommandLockerFailOnLockWaitTimeExpired(t *testing.T) {
+	commandLocker, _ := NewConsulCommandLocker(
+		testutils.CONSULURI,
+		"", // blank token
+		300*time.Millisecond,
+		500*time.Millisecond,
+		0,
+		true,
+	)
+
+	go func() {
+		commandLocker.LockAndExecute("test/cron/service/lock_wait_time_job", "sleep 10")
+	}()
+
+	time.Sleep(100 * time.Millisecond)
+
+	output, err := commandLocker.LockAndExecute("test/cron/service/lock_wait_time_job", "sleep 2")
+
+	if output != "" {
+		t.Errorf("Expected no output but received: %s", output)
+	}
+
+	if err != errLockWaitTimeExpired {
+		t.Errorf("Expected to received errLockWaitTimeExpired, but received: %+v", err)
 	}
 }
