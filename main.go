@@ -14,6 +14,11 @@ var (
 		500,
 		"Configures the wait time for a lock in milliseconds",
 	)
+	failOnLockWaitExpiration = flag.Bool(
+		"failwithoutlock",
+		false,
+		"Exists with status code 1 if the lock was not received within lockwaittime",
+	)
 	minLockTimeMS = flag.Int(
 		"minlocktime",
 		5000,
@@ -52,6 +57,7 @@ func main() {
 		time.Duration(*lockWaitTimeMS)*time.Millisecond,
 		time.Duration(*minLockTimeMS)*time.Millisecond,
 		time.Duration(*maxExecutionTimeMS)*time.Millisecond,
+		*failOnLockWaitExpiration,
 	)
 	if err != nil {
 		log.Fatalf("%v", err)
