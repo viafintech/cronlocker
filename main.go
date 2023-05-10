@@ -64,7 +64,7 @@ func main() {
 	}
 	output, err := ccl.LockAndExecute(*key, command)
 	if err != nil {
-		log.Fatalf("%v", err)
+		log.Fatalf("%v\nCommand output: %s", err, output)
 	}
 
 	fmt.Println("Command output:")

@@ -1,5 +1,5 @@
 NAME=cronlocker
-VERSION=0.8.0
+VERSION=0.9.0
 ARCH=amd64
 LICENSE="BSD 2-Clause License"
 MAINTAINER="Tobias Schoknecht <tobias.schoknecht@viafintech.com>"
