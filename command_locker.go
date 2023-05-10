@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"fmt"
 	"net/url"
 	"os/exec"
 	"time"
@@ -102,8 +103,10 @@ func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, err
 	targetTime := time.Now().Add(ccl.minLockTime)
 
 	cmd := exec.CommandContext(ctx, "bash", "-c", command)
-	var out bytes.Buffer
-	cmd.Stdout = &out
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
 	err = cmd.Run()
 
 	// Ensure to wait at least the minimum lock time
@@ -111,9 +114,14 @@ func (ccl *ConsulCommandLocker) LockAndExecute(key, command string) (string, err
 		time.Sleep(remainingTime)
 	}
 
-	if err != nil {
-		return "", err
+	resultOutput := stdout.String()
+	if stderr.String() != "" {
+		resultOutput = fmt.Sprintf("%s\nstderr: %s", resultOutput, stderr.String())
 	}
 
-	return out.String(), nil
+	if err != nil {
+		return resultOutput, err
+	}
+
+	return resultOutput, nil
 }
