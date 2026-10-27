@@ -1,6 +1,6 @@
 module github.com/viafintech/cronlocker
 
-go 1.20
+go 1.25.0
 
 require github.com/hashicorp/consul/api v1.18.0
 
@@ -17,6 +17,6 @@ require (
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	golang.org/x/net v0.7.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
 )
