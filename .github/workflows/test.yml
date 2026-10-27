@@ -11,10 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Build
       run: docker build -t cronlocker .
 
     - name: Test
-      run: docker-compose run --rm -T cronlocker make testci
+      run: docker compose run --rm -T cronlocker make testci
